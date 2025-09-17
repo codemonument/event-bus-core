@@ -150,19 +150,51 @@ export class ExplicitTypeEvent extends BusEvent<void> {
 
 ## Todos in this Repo
 
-1. Add test for event-bus.rxjs.ts
-2. Add Code from event-bus-nx package for rx version (esp. EventBus Callback
-   Group)
-3. Rewrite tests for deno
-4. Check if anything still works
+1. Switch from the class-based approach to a StandardSchema (aka zod, valibot,
+   arktype, etc.) approach => better for serialization
+
+2. Idea: Add an adapter for websocketApi to my event bus
+
+```ts
+// Example websocket integration in solidstart via vinxie
+websocket: {
+        async open(peer) {},
+        async message(peer, msg) {},
+        async close(peer, details) {},
+        async error(peer, error) {},
+    },
+// Example websocket integration in bun
+Bun.serve({
+  fetch(req, server) {}, // upgrade logic
+  websocket: {
+    message(ws, message) {}, // a message is received
+    open(ws) {}, // a socket is opened
+    close(ws, code, message) {}, // a socket is closed
+    drain(ws) {}, // the socket is ready to receive more data
+  },
+});
+```
 
 ## Considerations
 
-## Switchting to standard Webstreams
+## Adding a Response mechanism to the event bus?
+
+- or maybe on top of the event bus?
+
+=> this would make my event bus a kind of websocket protocol
+
+## Consideration: Adding `seroval` package for serialization, like solidStart does
+
+## Switchting to standard Webstreams?
 
 - pro: standardised spec
 - contra: more difficult to have one stream be sent to mutliple listeners and
   correctly closing all of them
+
+## Switchting to standard browser observable api?
+
+- not enough support right now, current implemntation runs in all browsers and
+  on all server platforms
 
 ---
 
